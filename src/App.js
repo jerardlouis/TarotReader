@@ -1,3 +1,4 @@
+/*
 import logo from './logo.svg';
 import './App.css';
 
@@ -20,6 +21,35 @@ function App() {
       </header>
     </div>
   );
+}
+
+export default App;
+*/
+import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      // Define your state variables here
+    };
+  }
+
+  // Add your functions and event handlers here
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Tarot Card Reading App</h1>
+        </header>
+        <main>
+          {/* Your Tarot card reading components will go here */}
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;

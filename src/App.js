@@ -25,31 +25,48 @@ function App() {
 
 export default App;
 */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+//import './Tarot.JSON';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      // Define your state variables here
-    };
-  }
+function App() {
+  const [tarotReading, setTarotReading] = useState(null);
 
-  // Add your functions and event handlers here
+  // Function to fetch a Tarot reading from the API
+  const fetchTarotReading = async () => {
+    try {
+      const response = await fetch('/api/tarot-reading'); // Replace with your API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch Tarot reading');
+      }
+      const data = await response.json();
+      setTarotReading(data);
+    } catch (error) {
+      console.error('Error fetching Tarot reading:', error);
+    }
+  };
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Tarot Card Reading App</h1>
-        </header>
-        <main>
-          {/* Your Tarot card reading components will go here */}
-        </main>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Tarot Card Reading App</h1>
+        {tarotReading && (
+          <div className="Tarot-Reading">
+            <h2>Your Tarot Reading</h2>
+            <ul>
+              {tarotReading.cards.map((card, index) => (
+                <li key={index}>
+                  <strong>Card:</strong> {card} <br />
+                  <strong>Interpretation:</strong> {tarotReading.interpretations[index]}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <button onClick={fetchTarotReading}>Get Tarot Reading</button>
+      </header>
+    </div>
+  );
 }
 
 export default App;
